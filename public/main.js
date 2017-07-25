@@ -1,31 +1,44 @@
-var CENTER_POINT = {lat: 52.3588347328288, lng: 4.89386737346649};
+var mapInstance;
 
 var map = {
-  init: function(){
-    var map = new google.maps.Map(document.getElementById('bw-map'), {
-      zoom: 11,
-      center: CENTER_POINT,
+  init: function(mainPoint){
+    mapInstance = new google.maps.Map(document.getElementById('bw-map'), {
+      zoom: 14,
+      center: {
+        lat: +mainPoint.lat,
+        lng: +mainPoint.long
+      },
       streetViewControl: false,
       mapTypeControlOptions: {
         position: google.maps.ControlPosition.TOP_CENTER
       }
     });
+    new google.maps.Marker({
+      position: {
+        lat: +mainPoint.lat,
+        lng: +mainPoint.long
+      },
+      icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+      map: mapInstance
+    });
   },
   createMarker: function(el){
     return new google.maps.Marker({
       position: {
-        lat: el.latitude,
-        lng: el.longitude
+        lat: +el.lat,
+        lng: +el.long
       },
       icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
-      map: map
+      map: mapInstance
     });
   }
 }
 
 var dropdown = {
-  template: function(name){
-    return '<div class="dropdown dropdown-' + name + ' closed">' +
+  standardTemplate: function(name){
+    return '<div>' +
+      '<div class="bw-button__opener"></div>' +
+      '</div><div class="dropdown dropdown-' + name + ' closed">' +
       '<div class="title">Distance (minutes)</div>' +
       '<div class="dropdown-menu dropdown-menu-' + name + '">' +
       '<ul>' +
@@ -43,7 +56,8 @@ var dropdown = {
       $list = $('.dropdown-menu-' + name + ' ul'),
       listItem = $list.find('li');
 
-    $(".dropdown-" + name + " .title").click(function () {
+    $(".dropdown-" + name + " .title").click(function (e) {
+      e.stopPropagation();
       if ($container.height() > 0) {
         closeMenu(this);
       } else {
@@ -52,6 +66,7 @@ var dropdown = {
     });
 
     $(".dropdown-menu" + name + " li").click(function () {
+      e.stopPropagation();
       closeMenu(this);
     });
 
@@ -76,7 +91,7 @@ var button = {
     var button = document.createElement('div');
     button.setAttribute('id', name);
     button.setAttribute('class', 'bw-button');
-    button.innerHTML = dropdown.template(name);
+    button.innerHTML = dropdown.standardTemplate(name);
     document.getElementById('bw-toolkit').appendChild(button);
     dropdown.init(name);
     $('#' + name).click(function (el) {
@@ -122,6 +137,9 @@ var preloader = {
   }
 }
 
+preloader.init();
+preloader.show();
+
 var customGUI = {
   init: function () {
     var toolkit = document.createElement('div');
@@ -130,34 +148,35 @@ var customGUI = {
     button.init("foot")
     button.init("car")
     button.init("bike")
-    button.init("public")
+    button.init("public", "custom")
     tooltip.init()
-    preloader.init();
   },
   getData: function(){
     $.ajax({
       type: "POST",
-      url: "https://still-hollows-33347.herokuapp.com/api/get_hotels_by_city_id/",
+      url: "https://still-hollows-33347.herokuapp.com/api/get_suitable_hotels/",
       data: {
-
+        "destination":"Barbican centre",
         "checkin":"2017-10-22",
         "checkout":"2017-10-23",
         "room1":'"A","A",4',
-        "destination":"Barbican centre"
+        "type":"walking",
       },
       success: function (res) {
-        customGUI.showDataOnMap(res.hotels)
+        var mainPoint =  res.origin;
+        map.init(mainPoint);
+        customGUI.showDataOnMap(res.suitable_hotels)
       }
     });
   },
   showDataOnMap: function(hotels){
     hotels.forEach(function (el) {
-      var marker = map.createMarker(el)
+      map.createMarker(el)
     })
     preloader.hide()
   }
 }
 
-map.init();
 customGUI.init();
+customGUI.getData();
 

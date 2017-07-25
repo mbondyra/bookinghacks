@@ -5,17 +5,17 @@
 
 #bw-container {
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     z-index: 10000;
     background: #e9f0fa;
     border: 1px solid #003580;
     box-shadow: 0 0 0 10px rgba(0, 0, 0, 0.45);
     direction: ltr;
-    width: 40vw;
+    width: 70vw;
     height: 80vh;
     right: 30px;
     bottom: 30px;
-    left: 50%;
+    left: 26%;
     top: 50px;
 }
 
@@ -32,12 +32,15 @@
     width: 30px;
     height: 120px;
 }
-
-.bw-button--open .bw-button__opener{
+.bw-button .dropdown{
+    display: none;
+}
+.bw-button--open .dropdown{
     display: block;
 }
 
 .bw-button {
+
     width: 29px;
     height: 29px;
     cursor: pointer;
@@ -50,13 +53,9 @@
 }
 
 .bw-button__opener {
-
-    display: none;
     position: absolute;
-    right: 110%;
-    width: 200px;
     height: 100%;
-    background: white;
+    width:100%;
 }
 
 #foot {
@@ -251,17 +250,17 @@
     transform: rotate(180deg);
 }
 .dropdown .title {
-    width: 100%;
     position: relative;
     padding: 7px;
     cursor: pointer;
     border-bottom: 1px solid #D9E1E4;
 }
 .dropdown .title:after {
+    transition: transform 0.2s ease;
     display: block;
     content: "⌃";
     position: absolute;
-    right: 28px;
+    right: 16px;
     margin-top: -16px;
     transform: rotate(0deg);
 }
