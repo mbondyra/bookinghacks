@@ -6,7 +6,7 @@ var initialData = {
   "checkout": checkout,
   "room1": 'A,A,4',
   "type": "walking",
-  "time": 3600
+  "time": 10800
 }
 var data = {
   "destination": destination,
@@ -14,7 +14,7 @@ var data = {
   "checkout": checkout,
   "room1": 'A,A,4',
   "type": "walking",
-  "time": 3600
+  "time": 10800
 }
 var map = {
   init: function (mainPoint) {
@@ -85,14 +85,14 @@ var dropdown = {
     return '<div>' +
       '<div class="bw-button__opener"></div>' +
       '</div><div class="dropdown dropdown-' + name + ' closed">' +
-      '<div class="title">Distance (minutes)</div>' +
+      '<div class="title">Distance (min)</div>' +
       '<div class="dropdown-menu dropdown-menu-' + name + '">' +
       '<ul>' +
-      '<li data-time="300"><5 minutes</li>' +
-      '<li data-time="600"><10 minutes</li>' +
-      '<li data-time="900"><15 minutes</li>' +
-      '<li data-time="1800"><30 minutes</li>' +
-      '<li data-time="2700"><45 minutes</li>' +
+      '<li data-time="300"> < 5 minutes</li>' +
+      '<li data-time="600"> < 10 minutes</li>' +
+      '<li data-time="900"> < 15 minutes</li>' +
+      '<li data-time="1800"> < 30 minutes</li>' +
+      '<li data-time="2700"> < 45 minutes</li>' +
       '</ul>' +
       '</div>' +
       '</div>';
@@ -117,6 +117,10 @@ var dropdown = {
       data.time = $(this).attr('data-time');
       data.type = name;
       customGUI.getDataAfterClick()
+      $( ".dropdown" ).removeClass( "dropdown--selected" )
+      $( ".bw-button" ).removeClass( "bw-button--selected" )
+      $(".dropdown-" + name).toggleClass("dropdown--selected")
+      $("#" + name).addClass("bw-button--selected")
     });
 
     function closeMenu(el) {
@@ -144,6 +148,8 @@ var button = {
     document.getElementById('bw-toolkit').appendChild(button);
     dropdown.init(name);
     $('#' + name).click(function (el) {
+
+      $(".bw-button").removeClass("bw-button--open");
       $(this).toggleClass("bw-button--open");
     })
   }
@@ -152,7 +158,7 @@ var button = {
 var tooltip = {
   init: function () {
     var tooltip = document.createElement('div');
-    tooltip.innerText = "New Filter - Try it out!";
+    tooltip.innerHTML = "<div>New Filter</div> <div>- Try it out!</div>";
     tooltip.setAttribute('id', "bw-tooltip");
     document.getElementById('bw-toolkit').appendChild(tooltip);
 
@@ -195,9 +201,9 @@ var customGUI = {
     toolkit.setAttribute('id', 'bw-toolkit');
     document.getElementById('bw-container').appendChild(toolkit);
     button.init("walking")
-    button.init("driving")
-    button.init("cycling")
     button.init("public_transport", "custom")
+    button.init("cycling")
+    button.init("driving")
     tooltip.init()
     customGUI.getInitialData()
   },
