@@ -1,6 +1,5 @@
 var mapInstance;
 var markers = [];
-
 var initialData = {
   "destination": destination,
   "checkin": checkin,
@@ -17,9 +16,6 @@ var data = {
   "type": "walking",
   "time": 3600
 }
-
-
-
 var map = {
   init: function (mainPoint) {
     mapInstance = new google.maps.Map(document.getElementById('bw-map'), {
@@ -38,7 +34,7 @@ var map = {
         lat: +mainPoint.lat,
         lng: +mainPoint.long
       },
-      icon: "http://maps.google.com/mapfiles/ms/icons/red-dot.png",
+      icon: "https://localhost:3000/static/images/dest.png",
       map: mapInstance
     });
 
@@ -65,14 +61,15 @@ var map = {
         lat: +el.lat,
         lng: +el.long
       },
-      icon: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png",
+      icon: "https://localhost:3000/static/images/marker1.png",
       map: mapInstance
     });
     markers.push(marker);
 
-    var content = "<div>"+el.name+"</div>" +
-      "<div>"+el.price+" "+el.currency_code+"</div>"+
-      "<div><a>more...</a></div>";
+    var content = "<div style='position: relative;'>" +
+      "<div style='font-weight:900; margin-bottom:5px'>"+el.name+"</div>" +
+      "<div style='color:#0ab21b; float: right; font-weight: 900'>"+el.currency_code+" "+el.price+"</div>"+
+      "<div><a style='color:#07c'>more...</a></div></div>";
     var infowindow = new google.maps.InfoWindow({
       content: content
     });
@@ -82,7 +79,6 @@ var map = {
     });
   }
 }
-
 
 var dropdown = {
   standardTemplate: function (name) {

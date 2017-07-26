@@ -4,7 +4,6 @@
 }
 
 #bw-container {
-    overflow: hidden;
     position: fixed;
     z-index: 10000;
     background: #e9f0fa;
@@ -13,10 +12,31 @@
     direction: ltr;
     width: 70vw;
     height: 80vh;
-    right: 30px;
-    bottom: 30px;
-    left: 26%;
-    top: 50px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#bw-container__close {
+    background-position: -147px 0px;
+    color: rgb(56, 56, 56);
+    cursor: pointer;
+    height: 24px;
+    position: absolute;
+    right: 0;
+    text-decoration: none solid rgb(56, 56, 56);
+    top: 0;
+    width: 24px;
+    z-index: 10;
+    column-rule-color: rgb(56, 56, 56);
+    perspective-origin: 12px 12px;
+    transform-origin: 12px 12px;
+    caret-color: rgb(56, 56, 56);
+    background: rgba(0, 0, 0, 0) url("https://t-ec.bstatic.com/static/img/map_sprites_omnibus/c1eef9a84308a1e0487a331f75c8631b0a16111f.png") no-repeat scroll -147px 0px / auto padding-box border-box;
+    border: 0px none rgb(56, 56, 56);
+    font: normal normal normal normal 13px / 15.6px system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    outline: rgb(56, 56, 56) none 0px;
+
 }
 
 #bw-map {
@@ -32,10 +52,12 @@
     width: 30px;
     height: 120px;
 }
-.bw-button .dropdown{
+
+.bw-button .dropdown {
     display: none;
 }
-.bw-button--open .dropdown{
+
+.bw-button--open .dropdown {
     display: block;
 }
 
@@ -55,40 +77,40 @@
 .bw-button__opener {
     position: absolute;
     height: 100%;
-    width:100%;
+    width: 100%;
 }
 
-#foot {
-    background-image: url(images/walking.png) ;
+#walking {
+    background-image: url(images/walking.png);
 }
 
-#foot:hover {
+#walking:hover {
     background-image: url(images/walking-hover.png);
 }
 
-#car {
+#driving {
     background-image: url(images/car.png);
 
 }
 
-#car:hover {
+#driving:hover {
     background-image: url(images/car-hover.png);
 }
 
-#bike {
+#cycling {
     background-image: url(images/bike.png);
 
 }
 
-#bike:hover {
+#cycling:hover {
     background-image: url(images/bike-hover.png);
 }
 
-#public {
+#public_transport {
     background-image: url(images/public.png);
 }
 
-#public:hover {
+#public_transport:hover {
     background-image: url(images/public-hover.png);
 }
 
@@ -106,22 +128,19 @@
 
 }
 
-
-
 #bw-tooltip:before {
     position: absolute;
     top: 3%;
     left: 86%;
-    content:"✖";
+    content: "✖";
     color: black;
 }
-
 
 #bw-tooltip:after {
     position: absolute;
     top: 100%;
     left: 78%;
-    content:"";
+    content: "";
     width: 0;
     height: 0;
     border-style: solid;
@@ -129,18 +148,19 @@
     border-color: #FEBB02 transparent transparent transparent;
 }
 
-#bw-preloader-layer{
+#bw-preloader-layer {
     pointer-events: none;
-    position:fixed;
-    width:100vw;
-    top:0;
-    height:100vh;
-    overflow:hidden;
-    background: rgba(255,255,255,0.5);
-    z-index:10000000;
+    position: fixed;
+    width: 100vw;
+    top: 0;
+    height: 100vh;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.5);
+    z-index: 10000000;
     display: none;
 }
-#bw-preloader-layer.visible{
+
+#bw-preloader-layer.visible {
     display: block;
 }
 
@@ -164,10 +184,12 @@
     font: normal normal normal normal 13px / 15.6px system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     outline: rgb(56, 56, 56) none 0px;
     padding: 40px;
-    top:50%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}/*#DIV_1*/
+}
+
+/*#DIV_1*/
 
 #DIV_2 {
     bottom: 0px;
@@ -184,12 +206,14 @@
     perspective-origin: 37.5px 37.5px;
     transform-origin: 37.5px 37.5px;
     caret-color: rgb(56, 56, 56);
-    background: rgba(0, 0, 0, 0) url(images/"https://t-ec.bstatic.com/static/img/map/maps_globe_loader/1921586f1cf1d096da0416379c16fc1ef8392269.gif") repeat scroll 0% 0% / auto padding-box border-box;
+    background: rgba(0, 0, 0, 0) url("https://t-ec.bstatic.com/static/img/map/maps_globe_loader/1921586f1cf1d096da0416379c16fc1ef8392269.gif") repeat scroll 0% 0% / auto padding-box border-box;
     border: 0px none rgb(56, 56, 56);
     font: normal normal normal normal 13px / 15.6px system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0px 112.5px 15px;
     outline: rgb(56, 56, 56) none 0px;
-}/*#DIV_2*/
+}
+
+/*#DIV_2*/
 
 #H3_3 {
     color: rgb(56, 56, 56);
@@ -205,7 +229,9 @@
     font: normal normal bold normal 15.34px / 18.408px system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     margin: 0px 0px 10px;
     outline: rgb(56, 56, 56) none 0px;
-}/*#H3_3*/
+}
+
+/*#H3_3*/
 
 #DIV_4 {
     color: rgb(56, 56, 56);
@@ -220,10 +246,9 @@
     border: 0px none rgb(56, 56, 56);
     font: normal normal normal normal 13px / 15.6px system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     outline: rgb(56, 56, 56) none 0px;
-}/*#DIV_4*/
+}
 
-
-
+/*#DIV_4*/
 
 .dropdown {
     text-align: left;
@@ -236,25 +261,31 @@
     height: 100%;
     background: white;
 }
+
 .dropdown.closed .dropdown-menu {
     margin-top: 0px;
 }
+
 .dropdown.closed .dropdown-menu li {
     height: 0px;
 }
+
 .dropdown.closed .title {
     border-bottom: none;
 }
+
 .dropdown.closed .title:after {
     margin-top: -16px;
     transform: rotate(180deg);
 }
+
 .dropdown .title {
     position: relative;
     padding: 7px;
     cursor: pointer;
     border-bottom: 1px solid #D9E1E4;
 }
+
 .dropdown .title:after {
     transition: transform 0.2s ease;
     display: block;
@@ -264,6 +295,7 @@
     margin-top: -16px;
     transform: rotate(0deg);
 }
+
 .dropdown .dropdown-menu {
     position: relative;
     overflow: hidden;
@@ -273,14 +305,16 @@
     transition: all 0.2s;
     box-sizing: border-box;
 }
+
 .dropdown ul {
     position: absolute;
     top: 0;
     width: 100%;
     margin: 0;
-    z-index:1000000;
+    z-index: 1000000;
     padding: 0;
 }
+
 .dropdown ul li {
     width: 100%;
     height: 26px;
@@ -293,6 +327,7 @@
     line-height: 26px;
     padding: 0 10px;
 }
+
 .dropdown ul li:hover {
     background-color: #D9E1E4;
     color: #343C3F;

@@ -20,6 +20,23 @@ f(),e=!0,b()}}}})(document,function(){e.domReady=d.onDOMReady instanceof Functio
   parseInt(e,10));d=d?(new Date).getTime()+864E5:0;d="expires="+(new Date(d)).toUTCString();document.cookie=[c,"path=/",d].join("; ");window.location.href=window.location.href.substr(0,window.location.href.indexOf("#"))}}})(document,window.location.hash);var w;w=document?"function"!=typeof Array.prototype.indexOf?!1:-1!==document.cookie.indexOf("criteoTagDebugMode="):!1;if(w){var x={originalPush:s,stagedPushes:[],stagedErrors:[],push:function(){0<arguments.length&&this.stagedPushes.push(arguments)},
   pushError:function(a){this.stagedErrors.push(a)}};window.onerror=function(a){return function(b,c,d,e){x.pushError({message:b,url:c,lineNumber:d,column:e});return a&&"function"===typeof a?a.apply(this,arguments):!1}}(window.onerror);z(document);return x}return{push:s}}();window.criteo_q.push.apply(window.criteo_q,oldQueue)};
 
+
+var url = {
+  get: function(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+}
+
+var destination = url.get('ss').replace(/\+/g, "");
+var checkin = url.get('checkin_year')+'-'+('0'+url.get('checkin_month')).slice(-2)+'-'+('0'+url.get('checkin_monthday')).slice(-2);
+var checkout = url.get('checkout_year')+'-'+('0'+url.get('checkout_month')).slice(-2)+'-'+('0'+url.get('checkout_monthday')).slice(-2);
+
 var BW = {}
 
 BW.injectJS = function(path){
@@ -39,22 +56,28 @@ BW.injectCSS= function(path){
   document.getElementsByTagName("head")[0].appendChild(link);
 }
 
+if (destination && checkin && checkout){
+  BW.Container = document.createElement('div');
+  BW.Container.setAttribute('id', 'bw-container');
+  document.getElementsByTagName('body')[0].appendChild(BW.Container);
 
-//BW CONTAINER
-BW.Container = document.createElement('div');
-BW.Container.setAttribute('id', 'bw-container');
-document.getElementsByTagName('body')[0].appendChild(BW.Container);
+  BW.Map = document.createElement('div');
+  BW.Map.setAttribute('id', 'bw-map');
+  document.getElementById('bw-container').appendChild(BW.Map);
 
-BW.Map = document.createElement('div');
-BW.Map.setAttribute('id', 'bw-map');
-document.getElementById('bw-container').appendChild(BW.Map);
+  BW.CLOSE = document.createElement('div');
+  BW.CLOSE.setAttribute('id', 'bw-container__close');
+  document.getElementById('bw-container').appendChild(BW.CLOSE);
+  BW.CLOSE.addEventListener('click', function(){
+    BW.Container.remove();
+  })
 
-BW.injectCSS("https://localhost:3000/static/mystyle.css")
-BW.injectJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyC4e1Tql8QC4grNotDNXnuZU1Xr1nYYT0Q&callback=loadModule')
-BW.injectJS('https://code.jquery.com/jquery-git.min.js')
+  BW.injectCSS("https://localhost:3000/static/mystyle.css")
+  BW.injectJS('https://maps.googleapis.com/maps/api/js?key=AIzaSyC4e1Tql8QC4grNotDNXnuZU1Xr1nYYT0Q&callback=loadModule')
+  BW.injectJS('https://code.jquery.com/jquery-git.min.js')
 
+}
 
 function loadModule() {
-
   BW.injectJS("https://localhost:3000/static/main.js")
 }
